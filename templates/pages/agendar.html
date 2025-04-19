@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Agendar Corte{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <h2>Agendar Serviço</h2>
+    <form method="POST">
+        <select name="servico" required onchange="definirPreco(this.value)">
+            <option value="">Selecione o serviço</option>
+            <option value="Corte Masculino">Corte Masculino</option>
+            <option value="Barba + Cabelo">Barba + Cabelo</option>
+            <option value="Sobrancelhas">Sobrancelhas</option>
+            <option value="Progressiva + Corte">Progressiva + Corte</option>
+            <option value="Alisamento + Corte">Alisamento + Corte</option>
+        </select>
+
+        <input type="hidden" name="preco" id="preco">
+        <p id="preco-display" style="margin-top: 10px; font-weight: bold;"></p>
+
+        <input type="date" name="data" required>
+        <input type="time" name="hora" required>
+
+        <button type="submit">Agendar</button>
+    </form>
+    <p><a href="/meus-agendamentos">Ver meus agendamentos</a></p>
+</div>
+
+<script>
+function definirPreco(servico) {
+    const tabelaPrecos = {
+        "Barba + Cabelo": 70.00,
+        "Corte Masculino": 45.00,
+        "Sobrancelhas": 10.00,
+        "Progressiva + Corte": 100.00,
+        "Alisamento + Corte": 100.00
+    };
+    const preco = tabelaPrecos[servico] || '';
+    document.getElementById('preco').value = preco;
+    document.getElementById('preco-display').innerText = preco ? `Preço: R$ ${preco.toFixed(2)}` : '';
+}
+</script>
+{% endblock %}

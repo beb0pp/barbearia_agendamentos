@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Administrativo</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Painel Administrativo</h1>
+
+        <div class="card-grid">
+            <div class="card">
+                <h2>Lucro Total</h2>
+                <p>R$ {{ lucro_total }}</p>
+            </div>
+
+            <div class="card">
+                <h2>Agendamentos no Mês</h2>
+                <p>{{ agendamentos_mes }}</p>
+            </div>
+
+            <div class="card">
+                <h2>Serviço Mais Vendido</h2>
+                <p>{{ servico_popular }}</p>
+            </div>
+
+            <div class="card">
+                <h2>Dia Mais Movimentado</h2>
+                <p>{{ dia_mais_movimentado }}</p>
+            </div>
+        </div>
+
+        <div class="chart-section">
+            <h2>Lucro por Mês</h2>
+            <canvas id="lucroPorMesChart"></canvas>
+
+            <h2>Serviços Realizados</h2>
+            <canvas id="servicosChart"></canvas>
+        </div>
+
+        <script>
+            const ctx1 = document.getElementById('lucroPorMesChart').getContext('2d');
+            const lucroPorMesChart = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: {{ ag_por_mes.keys() | list | tojson }},
+                    datasets: [{
+                        label: 'Lucro (R$)',
+                        data: {{ ag_por_mes.values() | list | tojson }},
+                        backgroundColor: 'rgba(139, 69, 19, 0.7)',
+                        borderColor: 'rgba(139, 69, 19, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            const ctx2 = document.getElementById('servicosChart').getContext('2d');
+            const servicosChart = new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: {{ servicos.keys() | list | tojson }},
+                    datasets: [{
+                        data: {{ servicos.values() | list | tojson }},
+                        backgroundColor: [
+                            '#8B4513', '#A0522D', '#CD853F', '#D2691E', '#DEB887'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        </script>
+
+        <a href="/logout">Sair</a>
+    </div>
+</body>
+</html>
