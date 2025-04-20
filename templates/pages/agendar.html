@@ -4,6 +4,7 @@
 {% block content %}
 <div class="login-container">
     <h2>Agendar Serviço</h2>
+
     <form method="POST">
         <select name="servico" required onchange="definirPreco(this.value)">
             <option value="">Selecione o serviço</option>
@@ -17,8 +18,10 @@
         <input type="hidden" name="preco" id="preco">
         <p id="preco-display" style="margin-top: 10px; font-weight: bold;"></p>
 
-        <input type="date" name="data" required>
-        <input type="time" name="hora" required>
+        <input type="date" name="data" id="data" required>
+        <select name="hora" id="hora" required>
+            <option value="">Selecione um horário</option>
+        </select>
 
         <button type="submit">Agendar</button>
     </form>
@@ -38,5 +41,30 @@ function definirPreco(servico) {
     document.getElementById('preco').value = preco;
     document.getElementById('preco-display').innerText = preco ? `Preço: R$ ${preco.toFixed(2)}` : '';
 }
+
+document.getElementById('data').addEventListener('change', function () {
+    const dataSelecionada = this.value;
+    const horaSelect = document.getElementById('hora');
+
+    if (!dataSelecionada) return;
+
+    fetch('/horarios-disponiveis', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `data=${dataSelecionada}`
+    })
+    .then(response => response.json())
+    .then(horarios => {
+        horaSelect.innerHTML = '<option value="">Selecione um horário</option>';
+        horarios.forEach(hora => {
+            const opt = document.createElement('option');
+            opt.value = hora;
+            opt.innerText = hora;
+            horaSelect.appendChild(opt);
+        });
+    });
+});
 </script>
 {% endblock %}

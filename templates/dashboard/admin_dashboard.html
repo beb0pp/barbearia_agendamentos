@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <title>Dashboard Administrativo</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <!-- FullCalendar v6 CDN corrigido -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+
+
 </head>
 <body>
     <div class="dashboard-container">
@@ -32,12 +38,21 @@
             </div>
         </div>
 
-        <div class="chart-section">
-            <h2>Lucro por Mês</h2>
-            <canvas id="lucroPorMesChart"></canvas>
+        <div class="chart-wrapper">
+            <div class="chart-box">
+                <h2>Lucro por Mês</h2>
+                <canvas id="lucroPorMesChart"></canvas>
+            </div>
+        
+            <div class="chart-box">
+                <h2>Serviços Realizados</h2>
+                <canvas id="servicosChart"></canvas>
+            </div>
+        </div>
 
-            <h2>Serviços Realizados</h2>
-            <canvas id="servicosChart"></canvas>
+        <div style="margin-top: 50px;">
+            <h2>Calendário de Agendamentos</h2>
+            <div id="calendar" style="background: white; padding: 20px; border-radius: 10px;"></div>
         </div>
 
         <script>
@@ -55,12 +70,38 @@
                     }]
                 },
                 options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#f1f1f1',
+                                font: {
+                                    size: 14, // aumentar fonte da legenda
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    },
                     scales: {
                         y: {
-                            beginAtZero: true
+                            ticks: {
+                                color: '#f1f1f1',
+                                font: {
+                                    size: 13
+                                }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#f1f1f1',
+                                font: {
+                                    size: 13
+                                }
+                            }
                         }
                     }
                 }
+                
             });
 
             const ctx2 = document.getElementById('servicosChart').getContext('2d');
@@ -79,10 +120,56 @@
                     responsive: true,
                     plugins: {
                         legend: {
-                            position: 'bottom'
+                            labels: {
+                                color: '#f1f1f1',
+                                font: {
+                                    size: 14, // aumentar fonte da legenda
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ticks: {
+                                color: '#f1f1f1',
+                                font: {
+                                    size: 13
+                                }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#f1f1f1',
+                                font: {
+                                    size: 13
+                                }
+                            }
                         }
                     }
                 }
+                
+            });
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const calendarEl = document.getElementById('calendar');
+
+                const calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    locale: 'pt-br',
+                    height: 'auto',
+                    contentHeight: 'auto',
+                    aspectRatio: 1.2, // <== aumenta altura da célula
+                    dayMaxEvents: true,
+                    eventDisplay: 'block',
+                    eventContent: function(arg) {
+                        return { html: arg.event.title }; // permite HTML
+                    },
+                    events: {{ agendamentos_json | tojson | safe }}
+                });
+                
+
+                calendar.render();
             });
         </script>
 
