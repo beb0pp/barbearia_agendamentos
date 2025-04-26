@@ -1,3 +1,15 @@
 # Banco de dados local
 *.sqlite3
 database/*.sqlite3
+
+# Arquivos de ambiente
+.env
+.env.*
+
+# Arquivos de cache Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Arquivos de log
+*.log
