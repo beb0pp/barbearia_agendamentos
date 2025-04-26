@@ -45,6 +45,14 @@ function definirPreco(servico) {
     document.getElementById('preco-display').innerText = preco ? `Preço: R$ ${preco.toFixed(2)}` : '';
 }
 
+// Definir data mínima como hoje
+const hoje = new Date();
+const ano = hoje.getFullYear();
+const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+const dia = String(hoje.getDate()).padStart(2, '0');
+const dataMinima = `${ano}-${mes}-${dia}`;
+document.getElementById('data').min = dataMinima;
+
 document.getElementById('data').addEventListener('change', function () {
     const dataSelecionada = this.value;
     const horaSelect = document.getElementById('hora');

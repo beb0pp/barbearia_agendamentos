@@ -20,6 +20,7 @@ def init_routes(app):
     def login():
         if request.method == 'POST':
             user = User.query.filter_by(email=request.form['email']).first()
+            
             if user and user.senha and user.senha != '' and user.senha != 'null':
                 from werkzeug.security import check_password_hash
                 if check_password_hash(user.senha, request.form['senha']):
@@ -173,7 +174,36 @@ def init_routes(app):
             agendamentos_json=agendamentos_json
         )
         
-        
+
+    @app.route('/admin/cancelar-agendamento', methods=['POST'])
+    @login_required
+    def admin_cancelar_agendamento():
+        if not current_user.is_admin:
+            return redirect(url_for('home'))
+
+        agendamento_id = request.form.get('agendamento_id')
+        agendamento = Agendamento.query.get(agendamento_id)
+
+        if agendamento:
+            db.session.delete(agendamento)
+            db.session.commit()
+            flash("Agendamento cancelado com sucesso.", "success")
+        else:
+            flash("Agendamento não encontrado.", "danger")
+
+        return redirect(url_for('gerenciar_agendamentos'))
+
+
+    @app.route('/admin/agendamentos')
+    @login_required
+    def gerenciar_agendamentos():
+        if not current_user.is_admin:
+            return redirect(url_for('home'))
+
+        from datetime import date
+        agendamentos = Agendamento.query.filter(Agendamento.data >= date.today()).order_by(Agendamento.data).all()
+        return render_template('dashboard/gerenciar_agendamentos.html', agendamentos=agendamentos)
+
     @app.route('/cancelar-agendamento', methods=['POST'])
     @login_required
     def cancelar_agendamento():
