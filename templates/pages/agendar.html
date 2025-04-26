@@ -6,6 +6,7 @@
     <h2>Agendar Serviço</h2>
 
     <form method="POST">
+        <label for="servico">Serviço:</label>
         <select name="servico" required onchange="definirPreco(this.value)">
             <option value="">Selecione o serviço</option>
             <option value="Corte Masculino">Corte Masculino</option>
@@ -17,8 +18,10 @@
 
         <input type="hidden" name="preco" id="preco">
         <p id="preco-display" style="margin-top: 10px; font-weight: bold;"></p>
-
+        
+        <label for="data">Data:</label>
         <input type="date" name="data" id="data" required>
+        <label for="hora">Horário:</label>
         <select name="hora" id="hora" required>
             <option value="">Selecione um horário</option>
         </select>

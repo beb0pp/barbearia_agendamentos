@@ -8,20 +8,20 @@
         <ul>
             {% for ag in agendamentos %}
                 <li>
-                    <strong>{{ ag.servico }}</strong> - R$ {{ ag.preco }} <br>
-                    Data: {{ ag.data.strftime('%d/%m/%Y') }} às {{ ag.hora.strftime('%H:%M') }}
+                    <p><strong>Serviço:</strong> {{ ag.servico }} - R$ {{ ag.preco }}</p>
+                    <p><strong>Data e Hora:</strong> {{ ag.data.strftime('%d/%m/%Y') }} às {{ ag.hora.strftime('%H:%M') }}</p>
                     <form method="POST" action="/cancelar-agendamento" style="margin-top: 10px;">
                         <input type="hidden" name="agendamento_id" value="{{ ag.id }}">
                         <button type="submit" onclick="return confirm('Tem certeza que deseja cancelar este agendamento?');">Cancelar</button>
                     </form>
                 </li>
-                <hr>
+                <hr style="border-top: 1px solid #4caf50;">
             {% endfor %}
         </ul>
     {% else %}
-        <p>Você ainda não possui agendamentos.</p>
+        <p style>Você ainda não possui agendamentos.</p>
     {% endif %}
-    <p><a href="/agendar">Novo agendamento</a></p>
-    <a href="/logout">Sair</a>
+    <p><a href="/agendar" style="background: linear-gradient(135deg, #2e7d32, #1b5e20); color: white;">Novo agendamento</a></p>
+    <a href="/logout" style="color: white;">Sair</a>
 </div>
 {% endblock %}

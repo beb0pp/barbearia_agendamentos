@@ -1,287 +1,459 @@
-/* Fonte e fundo geral */
-body {
+/* === Reset === */
+*, *::before, *::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #2b2b2b;
-    color: #f1f1f1;
 }
 
-/* Containers padrão */
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1f1f1f;
+    color: #f1f1f1;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* === Containers === */
+.container {
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
 .login-container,
 .register-container,
 .dashboard-container {
-    max-width: 1100px;
-    margin: 80px auto;
-    padding: 40px;
-    background-color: #3e3e3e;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 60px 30px;
+    background-color: #2a2a2a;
     border-radius: 12px;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
-    text-align: center;
-}
-
-/* Títulos */
-h1, h2 {
-    color: #deb887;
-}
-
-/* Inputs e botões */
-form input[type="text"],
-form input[type="email"],
-form input[type="password"],
-form input[type="date"],
-form input[type="time"],
-form select,
-form button {
-    width: 90%;
-    padding: 12px;
-    margin: 12px 0;
-    border: none;
-    border-radius: 8px;
-    background-color: #4b4b4b;
-    color: #f1f1f1;
-    font-size: 16px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    min-height: 100vh;
     box-sizing: border-box;
 }
 
-form button {
-    background-color: #8b4513;
-    cursor: pointer;
-    transition: background 0.3s ease;
+/* === Headings === */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    color: #deb887;
+    margin-bottom: 20px;
+    line-height: 1.2;
 }
 
-form button:hover {
-    background-color: #a0522d;
+h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+}
+
+h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+/* === Paragraphs & Links === */
+p {
+    font-size: 1rem;
 }
 
 a {
     color: #ffa500;
     text-decoration: none;
+    transition: color 0.3s;
 }
+
 a:hover {
+    color: #ffbb33;
     text-decoration: underline;
 }
 
-/* Dashboard cards */
+/* === Forms === */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    max-width: 500px;
+}
+
+form input,
+form select,
+form button {
+    width: 100%;
+    padding: 14px 16px;
+    background-color: #2e2e2e;
+    border: 1px solid #555;
+    border-radius: 10px;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: #fff;
+    transition: border 0.3s, background-color 0.3s;
+}
+
+form input:focus,
+form select:focus {
+    outline: none;
+    border-color: #a0522d;
+    background-color: #383838;
+}
+
+form button {
+    background: linear-gradient(135deg, #a0522d, #8b4513);
+    font-weight: bold;
+    color: white;
+    transition: background 0.4s ease, transform 0.2s;
+    cursor: pointer;
+}
+
+form button:hover {
+    background: linear-gradient(135deg, #b86b3c, #a0522d);
+    transform: scale(1.02);
+}
+
+form button:focus {
+    outline: 2px solid #deb887;
+}
+
+#preco-display {
+    font-size: 1.2rem;
+    color: #ffd700;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* === Card Grid === */
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
     margin-top: 40px;
 }
 
 .card {
-    background-color: #4a4a4a;
-    padding: 20px;
-    border-radius: 10px;
-    border-left: 6px solid #a0522d;
+    background-color: #333;
+    border-radius: 12px;
+    padding: 24px;
     text-align: center;
+    border-left: 6px solid #a0522d;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
 .card h2 {
-    font-size: 18px;
-    margin-bottom: 8px;
+    font-size: clamp(1.5rem, 2vw, 2rem);
     color: #ffd700;
 }
 
 .card p {
-    font-size: 22px;
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
     font-weight: bold;
-    margin: 0;
 }
 
-/* Charts */
+/* === Charts === */
 .chart-wrapper {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 30px;
+    justify-content: center;
     margin: 40px 0;
 }
 
 .chart-box {
+    flex: 1 1 48%;
+    min-width: 360px;
+    max-width: 800px;
     background-color: #2c2c2c;
-    padding: 20px;
-    border-radius: 10px;
-    flex: 1 1 45%;
-    max-width: 48%;
-    box-sizing: border-box;
-}
-
-@media (max-width: 768px) {
-    .chart-box {
-        max-width: 100%;
-    }
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
 .chart-box canvas {
     width: 100% !important;
-    height: 350px !important;
+    aspect-ratio: 16 / 9;
+    min-height: 400px;
+    max-height: 600px;
 }
 
+/* === Calendar === */
+#calendar {
+    width: 100%;
+    padding: 40px;
+    background-color: #2c2c2c;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    min-height: 1000px;
+}
 
-canvas {
-    background-color: #3b3b3b;
-    padding: 10px;
+.fc {
+    color: #e3caa5;
+}
+
+.fc-toolbar-title {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+}
+
+.fc-button {
+    background: #6a1b1b !important;
+    border-radius: 8px !important;
+    padding: 8px 16px;
+}
+
+.fc-button:hover {
+    background: #922b2b !important;
+}
+
+.fc-event {
+    font-size: 1rem;
+    padding: 8px 12px;
     border-radius: 8px;
-    margin-top: 20px;
-    max-width: 100%;
+    white-space: normal;
+    line-height: 1.4em;
 }
 
-/* Botão de logout */
-.dashboard-container a {
-    display: inline-block;
-    margin-top: 40px;
-    background-color: #8b0000;
-    padding: 10px 20px;
-    border-radius: 6px;
-    color: #fff;
+.fc-daygrid-day {
+    min-height: 100px;
+}
+
+/* === Flash Messages === */
+.flash-messages {
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.flash-messages .alert {
+    padding: 16px;
+    border-radius: 8px;
     font-weight: bold;
-    transition: background 0.3s ease;
+    text-align: center;
+    margin-bottom: 16px;
 }
 
-.dashboard-container a:hover {
-    background-color: #a52a2a;
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+}
+.alert-warning {
+    background: #fff3cd;
+    color: #856404;
+}
+.alert-danger {
+    background: #f8d7da;
+    color: #721c24;
 }
 
-/* Estilo específico para listas de agendamentos */
+/* === List Items === */
 ul {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
 }
 
 ul li {
-    background-color: #3d3d3d;
+    background: #3d3d3d;
+    padding: 20px;
     margin-bottom: 12px;
-    padding: 16px;
-    border-radius: 8px;
     border-left: 5px solid #a0522d;
-    line-height: 1.5em;
-}
-
-/* Linha horizontal para separar itens */
-hr {
-    border: none;
-    border-top: 1px solid #555;
-    margin: 10px 0;
-}
-
-/* Links internos nas páginas */
-.dashboard-container p a,
-.login-container p a {
-    display: inline-block;
-    margin-top: 10px;
-    color: #ffa500;
-    background-color: transparent;
-    padding: 6px 12px;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-.dashboard-container p a:hover,
-.login-container p a:hover {
-    text-decoration: underline;
-}
-
-.flash-messages {
-    list-style: none;
-    padding: 0;
-    margin: 20px auto;
-    max-width: 600px;
-}
-
-.flash-messages .alert {
     border-radius: 10px;
-    padding: 15px 20px;
-    margin-bottom: 15px;
-    font-size: 16px;
-    font-weight: 600;
+}
+
+/* === Dashboard Logout === */
+.dashboard-container a {
+    display: block;
+    margin-top: 30px;
+    padding: 16px;
+    background: linear-gradient(135deg, #8b0000, #a52a2a);
+    border-radius: 10px;
+    font-weight: bold;
     text-align: center;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1.1rem;
 }
 
-.alert-warning {
-    background-color: #fff3cd;
-    color: #856404;
-    border: 1px solid #ffeeba;
+.dashboard-container a:hover {
+    background: linear-gradient(135deg, #a52a2a, #c0392b);
 }
 
-.alert-success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
+/* === Media Queries === */
+@media (max-width: 992px) {
+    .chart-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .chart-box {
+        flex: 1 1 100%;
+        padding: 20px;
+    }
+
+    #calendar {
+        padding: 20px;
+        min-height: 800px;
+    }
 }
 
-.alert-danger {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
+@media (max-width: 768px) {
+
+    body::after {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        z-index: 999;
+        font-size: 10px;
+    }
+    
+    
+    .login-container,
+    .register-container,
+    .dashboard-container {
+        padding: 50px 20px;
+    }
+
+    .login-container h2,
+    .register-container h2,
+    .dashboard-container h2 {
+        font-size: 2.4rem;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    form input,
+    form button,
+    form select {
+        font-size: 1.6rem;
+        padding: 20px;
+        margin-bottom: 24px;
+        min-height: 70px;
+        border-radius: 14px;
+    }
+
+    form button {
+        font-size: 1.8rem;
+        font-weight: bold;
+    }
+
+    .login-container label,
+    .register-container label {
+        font-size: 1.4rem;
+        margin-top: 20px;
+        text-align: left;
+    }
+
+    #preco-display {
+        font-size: 1.6rem;
+        margin-top: 15px;
+        text-align: center;
+    }
+
+    p, a, .dashboard-container p {
+        font-size: 1.4rem;
+        margin-top: 20px;
+    }
+    
+    .dashboard-container a {
+        padding: 20px;
+        font-size: 1.5rem;
+        border-radius: 14px;
+    }
+    
+    .card h2 {
+        font-size: 2rem;
+    }
+    
+    .card p {
+        font-size: 1.8rem;
+    }
+
+    .flash-messages .alert {
+        font-size: 1.4rem;
+        padding: 20px;
+    }
 }
 
+/* Even more aggressive below 480px */
+@media (max-width: 480px) {
+    .login-container,
+    .register-container,
+    .dashboard-container {
+        padding: 40px 15px;
+    }
 
-#calendar {
-    width: 100%;
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 25px;
-    background: #2c2c2c;
-    border-radius: 12px;
-    min-height: 900px;
-    box-sizing: border-box;
-    color: #f1f1f1;
-}
+    .login-container h2,
+    .register-container h2,
+    .dashboard-container h2 {
+        font-size: 2.6rem;
+        margin-bottom: 35px;
+    }
 
+    form input,
+    form button,
+    form select {
+        font-size: 1.8rem;
+        padding: 24px;
+        margin-bottom: 28px;
+        min-height: 80px;
+        border-radius: 16px;
+    }
 
-/* Estilo geral do calendário */
-.fc {
-    background-color: #2c2c2c;
-    color: #e3caa5;
-    border-radius: 10px;
-    padding: 10px;
-    font-family: sans-serif;
-}
+    form button {
+        font-size: 2rem;
+    }
 
-/* Cabeçalho do calendário */
-.fc-toolbar-title {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #e3caa5;
-}
+    .login-container label,
+    .register-container label {
+        font-size: 1.6rem;
+        margin-top: 20px;
+    }
 
-.fc-button {
-    background-color: #6a1b1b !important;
-    color: white !important;
-    border: none !important;
-    border-radius: 6px !important;
-    padding: 5px 12px;
-    text-transform: capitalize;
-}
+    #preco-display {
+        font-size: 1.8rem;
+        margin-top: 20px;
+    }
 
-.fc-button:hover {
-    background-color: #922b2b !important;
-}
+    p, a, .dashboard-container p {
+        font-size: 1.6rem;
+    }
 
-/* Estilo das células de data */
-.fc-daygrid-day-number {
-    color: #e3caa5;
-    font-weight: bold;
-}
+    .dashboard-container a {
+        padding: 22px;
+        font-size: 1.6rem;
+        border-radius: 16px;
+    }
 
-/* Eventos */
-.fc-event {
-    background-color: #8B4513 !important;
-    color: #fff !important;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: 500;
-    padding: 6px 8px;
-    white-space: normal !important;
-    overflow-wrap: break-word;
-    line-height: 1.3em;
-    text-align: left;
-}
+    .card h2 {
+        font-size: 2.2rem;
+    }
 
-.fc-event:hover {
-    filter: brightness(1.2);
-    cursor: pointer;
+    .card p {
+        font-size: 2rem;
+    }
+
+    .flash-messages .alert {
+        font-size: 1.6rem;
+        padding: 24px;
+    }
+
+    .chart-box {
+        padding: 24px;
+    }
+
+    #calendar {
+        padding: 20px;
+        min-height: 650px;
+    }
+
+    .fc-toolbar-title {
+        font-size: 2rem;
+    }
 }
